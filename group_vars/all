@@ -1,6 +1,10 @@
 ---
 # Variables for openstack
 
+mysql_host: 1.1.1.1
+
+keystone_host: 1.1.1.1
+
 keystone_db_pass: keystone
 keystone_admin_token: ADMIN
 

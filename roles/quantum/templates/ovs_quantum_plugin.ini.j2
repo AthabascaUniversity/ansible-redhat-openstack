@@ -1,5 +1,5 @@
 [DATABASE]
-sql_connection = mysql://quantum:{{ quantum_db_pass }}@localhost/ovs_quantum
+sql_connection = mysql://quantum:{{ quantum_db_pass }}@{{ mysql_host }}/ovs_quantum
 reconnect_interval = 2
 
 [OVS]

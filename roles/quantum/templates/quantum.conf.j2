@@ -19,7 +19,7 @@ qpid_hostname = {{ head_node_ip }}
 [AGENT]
 
 [keystone_authtoken]
-auth_host = {{ head_node_ip }}
+auth_host = {{ keystone_host }}
 auth_port = 35357
 auth_protocol = http
 signing_dir = /var/lib/quantum/keystone-signing

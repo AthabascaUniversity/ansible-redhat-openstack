@@ -17,7 +17,7 @@ volume_api_class=nova.volume.cinder.API
 
 
 # DATABASE
-sql_connection=mysql://nova:{{ nova_db_pass }}@localhost/nova
+sql_connection=mysql://nova:{{ nova_db_pass }}@{{ mysql_host }}/nova
 
 # COMPUTE
 libvirt_type={{ nova_libvirt_type }}
@@ -71,7 +71,7 @@ auth_strategy = keystone
 admin_tenant_name = admin
 admin_user = admin
 admin_password = {{ admin_pass }}
-auth_host = {{ head_node_ip }}
+auth_host = {{ keystone_host }}
 auth_port = 35357
 auth_protocol = http
 signing_dir = /tmp/keystone-signing-nova

@@ -1,7 +1,14 @@
 [openstack_controller]
-openstack-controller
 
-[openstack_compute]
-openstack-compute
+[openstack_nova]
 
+[openstack_nova_compute]
+
+[openstack_keystone]
+
+[openstack_glance]
+
+[openstack_cinder]
+
+[openstack_cinder_volume]
 

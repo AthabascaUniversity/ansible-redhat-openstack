@@ -5,12 +5,36 @@
   roles:
    - common
 
+- hosts: openstack_nova
+  roles:
+   - nova
+
+- hosts: openstack_nova_compute
+  roles:
+   - nova-compute
+
 - hosts: openstack_controller
   roles:
    - controller
+   - horizon
 
-- hosts: openstack_compute
+- hosts: openstack_cinder
   roles:
-   - compute
- 
+   - cinder
+   
+- hosts: openstack_cinder_volume
+  roles:
+   - cinder-volume
+   
+- hosts: openstack_keystone
+  roles:
+   - keystone
+   
+- hosts: openstack_quantum  
+  roles:
+   - quantum
+   
+- hosts: openstack_glance
+  roles:
+   - glance
  

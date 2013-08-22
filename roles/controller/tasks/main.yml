@@ -2,10 +2,10 @@
 # The mail include file  for the controller node
 
 - include: base.yml
-- include: keystone.yml
-- include: glance.yml
-- include: nova.yml
-- include: cinder.yml
+# - include: keystone.yml
+# - include: glance.yml
+# - include: nova.yml
+# - include: cinder.yml
 - include: horizon.yml
-- include: quantum.yml
+# - include: quantum.yml
 

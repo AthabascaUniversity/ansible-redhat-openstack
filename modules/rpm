@@ -2,16 +2,34 @@
 
 DOCUMENTATION='''
 ---
+author: Dmitry Makovey
+module: rpm
+short_description: Check RPM package status
+description:
+  - This module queries RPM database setting Ansible facts for queried packages
+version_added: "0.1"
+options:
+  names:
+    description:
+    - names of the packages to query comma-separated
+    required: true
+  state:
+    choices: [ "present", "absent" ]
+    default: present
+    description:
+    - whether packages should be tested for absence or presence 
+    required: false
 '''
 
 EXAMPLES='''
+- rpm: names=httpd,php state=present
 '''
 
 # import sys
-try:
-    import json
-except ImportError:
-    import simplejson as json
+# try:
+#     import json
+# except ImportError:
+#     import simplejson as json
 # import os
 # import shlex
 
@@ -28,6 +46,7 @@ def main():
 
     state = module.params['state']
     packages=module.params['names']
+    failed=False
     
     ts = rpm.TransactionSet()
 
@@ -51,7 +70,11 @@ def main():
             res[p]={'version':h['version'],'release':h['release'],'state':'present'}
             # print "%s-%s-%s" % (h['name'], h['version'], h['release'])
             
-    module.exit_json(changed=True,ansible_facts=res)
+    for p in res.keys():
+        if res[p]['state']!=state:
+            failed=True
+            
+    module.exit_json(changed=False,ansible_facts=res,failed=failed)
     # print json.dumps({"changed":"True","ansible_facts":res})
     
     

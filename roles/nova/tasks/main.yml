@@ -5,6 +5,10 @@
   yum: name=openstack-nova state=installed
   tags: install       
    
+- name: Check OpenStack nova  packages.
+  rpm: names=openstack-nova state=present
+  tags: check       
+   
 - name: Setup DB for nova
   shell: /usr/bin/openstack-db --init --service nova -p {{ nova_db_pass }} -r " " -y 
          creates=/var/lib/mysql/nova

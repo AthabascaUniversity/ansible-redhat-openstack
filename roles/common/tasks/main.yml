@@ -23,7 +23,19 @@
    - libselinux-python
    - openssl-devel
   notify: restart services 
-  tags: install       
+  tags: install     
+  
+- name: Check for required packages
+  rpm: name={{ item }} state=present
+  with_items:
+   - ntp
+   - sudo
+   - scsi-target-utils
+   - dbus
+   - libselinux-python
+   - openssl-devel
+  notify: restart services 
+  tags: check     
 
 - name: Remove previous openvwitch if installed
   yum: name=openvswitch-1.9.0 state=absent
@@ -74,10 +86,19 @@
          creates=/lib/modules/2.6.32-358.2.1.el6.x86_64/extra/openvswitch/openvswitch.ko
   tags: install       
 
+- name: Check the custom vswitch kernel rpm
+  rpm:  names=kmod-openvswitch state=present
+  tags: check
+
 - name: Install the custom openvswitch rpm
   shell: yum -y localinstall /root/rpmbuild/RPMS/x86_64/openvswitch-1.10.0-1.x86_64.rpm
          creates=/usr/share/doc/openvswitch-1.10.90/FAQ
   tags: install       
+
+- name: Check the custom vswitch kernel rpm
+  rpm:  names=openvswitch state=present
+  tags: check
+
 
 - name: Create the hosts entry.
   template: src=hosts.j2 dest=/etc/hosts

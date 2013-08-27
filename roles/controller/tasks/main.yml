@@ -6,6 +6,6 @@
 # - include: glance.yml
 # - include: nova.yml
 # - include: cinder.yml
-- include: horizon.yml
+# - include: horizon.yml
 # - include: quantum.yml
 

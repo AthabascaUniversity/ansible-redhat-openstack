@@ -13,6 +13,18 @@
    - libguestfs-tools
   tags: install       
 
+- name: Check the required virtualization packages
+  yum: names={{ item }} state=present
+  with_items:
+   - qemu-img
+   - qemu-kvm
+   - qemu-kvm-tools
+   - libvirt
+   - libvirt-client
+   - libvirt-python
+   - libguestfs-tools
+  tags: check
+
 - name: Configure qemu.conf in libvirt
   copy: src=qemu.conf.j2 dest=/etc/libvirt/qemu.conf
   notify: restart libvirtd

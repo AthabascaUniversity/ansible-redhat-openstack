@@ -5,6 +5,10 @@
   yum: name=openstack-glance state=installed
   tags: install       
 
+- name: Check glance OpenStack packages
+  rpm: name=openstack-glance state=installed
+  tags: check       
+
 - name: Setup DB for glance
   shell: /usr/bin/openstack-db --init --service glance -p {{ glance_db_pass }} -r " " -y 
          creates=/var/lib/mysql/glance

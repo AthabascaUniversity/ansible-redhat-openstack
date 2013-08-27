@@ -4,6 +4,11 @@
 - name: Install OpenStack cinder  packages.
   yum: name=openstack-cinder state=installed
   tags: install
+
+- name: Check for OpenStack cinder  packages.
+  rpm: names=openstack-cinder state=present
+  tags: check
+   
    
 - name: Setup DB for nova
   shell: /usr/bin/openstack-db --init --service cinder -p {{ cinder_db_pass }} -r " " -y 

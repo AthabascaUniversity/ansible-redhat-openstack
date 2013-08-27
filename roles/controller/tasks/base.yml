@@ -12,6 +12,17 @@
    - openstack-utils
   tags: install       
 
+- name: Check the base packages
+  rpm: names={{ item }} state=present
+  with_items: 
+   - mysql
+   - mysql-server
+   - MySQL-python
+   - qpid-cpp-client
+   - qpid-cpp-server
+   - openstack-utils
+  tags: check       
+
 - name: start the services
   service: name={{ item }} state=started enabled=yes
   with_items:

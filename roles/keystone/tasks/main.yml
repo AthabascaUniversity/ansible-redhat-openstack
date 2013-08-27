@@ -8,6 +8,13 @@
    - python-keystoneclient
   tags: install       
 
+- name: Check OpenStack keystone  packages.
+  rpm: names={{ item }} state=present
+  with_items: 
+   - openstack-keystone
+   - python-keystoneclient
+  tags: check       
+
 - name: Setup DB for keystone
   shell: creates=/var/lib/mysql/keystone /usr/bin/openstack-db --init --service keystone -p {{ keystone_db_pass }} -r " " -y 
   tags: setup       

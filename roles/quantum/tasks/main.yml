@@ -6,7 +6,14 @@
   with_items:
    - openstack-quantum
    - openstack-quantum-openvswitch
-  tags: setup       
+  tags: install       
+
+- name: Install packages for quantum
+  rpm: names={{ item }} state=present
+  with_items:
+   - openstack-quantum
+   - openstack-quantum-openvswitch
+  tags: check
 
 
 - name: Enable ipv4 forwarding in the host

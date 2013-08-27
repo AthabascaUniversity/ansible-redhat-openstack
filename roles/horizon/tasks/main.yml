@@ -18,7 +18,7 @@
    - python-memcached 
    - mod_wsgi 
    - openstack-dashboard
-   - openstack-nova-novncproxy
+   ##DISABLED - openstack-nova-novncproxy
   tags: check       
 
 - name: Copy the configuration files for horizon

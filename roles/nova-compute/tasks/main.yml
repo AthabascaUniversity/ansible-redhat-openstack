@@ -14,11 +14,11 @@
   tags: install       
 
 - name: Check the required virtualization packages
-  yum: names={{ item }} state=present
+  rpm: names={{ item }} state=present
   with_items:
    - qemu-img
    - qemu-kvm
-   - qemu-kvm-tools
+   ##DISABLED - qemu-kvm-tools
    - libvirt
    - libvirt-client
    - libvirt-python

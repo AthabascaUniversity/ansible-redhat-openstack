@@ -6,7 +6,7 @@
   tags: install       
 
 - name: Check glance OpenStack packages
-  rpm: name=openstack-glance state=installed
+  rpm: names=openstack-glance state=present
   tags: check       
 
 - name: Setup DB for glance

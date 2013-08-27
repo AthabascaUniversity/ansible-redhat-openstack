@@ -6,32 +6,42 @@
   with_items: 
    - openstack-keystone
    - python-keystoneclient
+  tags: install       
 
 - name: Setup DB for keystone
   shell: creates=/var/lib/mysql/keystone /usr/bin/openstack-db --init --service keystone -p {{ keystone_db_pass }} -r " " -y 
+  tags: setup       
 
 - name: Create certs for the keystone
   shell: creates=/etc/keystone/ssl/certs/ca.pem /usr/bin/keystone-manage pki_setup; chmod 777 /var/lock
+  tags: setup       
 
 - name: Copy the configuration files for keystone
   template: src=keystone.conf.j2 dest=/etc/keystone/keystone.conf 
   notify: restart keystone 
+  tags: setup       
 
 - name: Change ownership of all files to keystone
   file: path=/etc/keystone recurse=yes owner=keystone group=keystone state=directory
+  tags: setup       
 
 - name: Start the keystone services
   service: name=openstack-keystone state=started enabled=yes
+  tags: setup       
 
 - name: DB sync for keystone
   shell: creates=/etc/keystone/db.synced /usr/bin/keystone-manage db_sync; touch /etc/keystone/db.synced
+  tags: setup       
 
 - name: Copy the file for data insertion into keystone
   template: src=keystone_data.sh.j2 dest=/tmp/keystone_data.sh mode=0755
+  tags: setup       
 
 - name: Copy the keystonerc file
   template: src=keystonerc.j2 dest=/root/keystonerc mode=0755
+  tags: setup       
 
 - name: Upload the data to keystone database
   shell: creates=/etc/keystone/db.updated /tmp/keystone_data.sh; touch /etc/keystone/db.updated
+  tags: setup       
 

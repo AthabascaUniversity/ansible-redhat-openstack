@@ -11,39 +11,51 @@
    - libvirt-client
    - libvirt-python
    - libguestfs-tools
+  tags: install       
 
 - name: Configure qemu.conf in libvirt
   copy: src=qemu.conf.j2 dest=/etc/libvirt/qemu.conf
   notify: restart libvirtd
+  tags: setup       
 
 - name: service libvirt start
   service: name=libvirtd state=started enabled=yes
+  tags: setup       
 
 - name: create link for the qemu
   file: src=/usr/libexec/qemu-kvm dest=/usr/bin/qemu-system-x86_64 state=link
+  tags: setup       
 
 - name: Install packages for openstack
   yum: name={{ item }} state=installed
   with_items:
    - openstack-nova-compute
    - openstack-quantum-openvswitch
+  tags: install     
 
 - name: Create the internal bridges for openvswitch
   shell: creates=/etc/quantum/br-int.created /usr/bin/ovs-vsctl add-br br-int; touch /etc/quantum/br-int.created
+  tags: setup       
 
 - name: Copy the quantum.conf  configuration files
   template: src=roles/controller/templates/quantum.conf.j2 dest=/etc/quantum/quantum.conf
+  tags: setup       
 
 - name: Copy the quantum ovs agent configuration files
   template: src=ovs_quantum_plugin.ini.j2 dest=/etc/quantum/plugins/openvswitch/ovs_quantum_plugin.ini
   notify:  restart quantum ovsagent
+  tags: setup       
 
 - name: Copy the nova configuration files
   template: src=nova.conf.j2 dest=/etc/nova/nova.conf
   notify:  restart nova compute
+  tags: setup       
 
 - name: Give permissions to lock folder
   file: path=/var/lock state=directory owner=root group=root mode=0777
+  tags: setup       
 
 - name: Copy the modified file for key injection bug
   copy: src=guestfs.py dest=/usr/lib/python2.6/site-packages/nova/virt/disk/vfs/
+  tags: setup       
+  

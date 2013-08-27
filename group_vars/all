@@ -6,7 +6,7 @@ mysql_host: 1.1.1.1
 keystone_host: 1.1.1.1
 
 keystone_db_pass: keystone
-keystone_admin_token: ADMIN
+keystone_admin_token: ADMINTOKENBLAHBLAH
 
 glance_db_pass: glance
 glance_filesystem_store_datadir: /var/lib/glance/images/

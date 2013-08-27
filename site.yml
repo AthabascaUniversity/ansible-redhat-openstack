@@ -1,6 +1,9 @@
 ---
 # The main openstack site deployment playbook
 
+##TODO
+## - split actions into different categories using tags: install, setup
+
 - hosts: all
   roles:
    - common

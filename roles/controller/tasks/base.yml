@@ -10,12 +10,14 @@
    - qpid-cpp-client
    - qpid-cpp-server
    - openstack-utils
+  tags: install       
 
 - name: start the services
   service: name={{ item }} state=started enabled=yes
   with_items:
    - mysqld
    - qpidd
+  tags: setup       
 
 
 

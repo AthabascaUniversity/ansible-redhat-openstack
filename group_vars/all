@@ -12,7 +12,7 @@ glance_db_pass: glance
 glance_filesystem_store_datadir: /var/lib/glance/images/
 
 nova_db_pass: nova
-nova_libvirt_type: qemu
+nova_libvirt_type: kvm
 
 quantum_db_pass: quantum
 quantum_external_interface: eth2

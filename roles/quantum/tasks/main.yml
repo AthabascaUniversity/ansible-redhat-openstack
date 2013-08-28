@@ -1,6 +1,19 @@
 ---
 # Tasks for the quantum controller node
 
+- name: Install OpenVSwitch build required packages
+  yum: name={{ item }} state=installed
+  with_items:
+   - openssl-devel
+  tags: install     
+  
+- name: Check for OpenVSwitch build required packages
+  rpm: names={{ item }} state=present
+  with_items:
+   - openssl-devel
+  tags: check     
+
+
 ## OpenVSwitch block
 - name: Remove previous openvwitch if installed
   yum: name=openvswitch-1.9.0 state=absent

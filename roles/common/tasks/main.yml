@@ -21,7 +21,6 @@
    - scsi-target-utils
    - dbus
    - libselinux-python
-   - openssl-devel
   notify: restart services 
   tags: install     
   
@@ -33,11 +32,8 @@
    - scsi-target-utils
    - dbus
    - libselinux-python
-   ##DISABLED - openssl-devel
   notify: restart services 
   tags: check     
-
-
 
 - name: Create the hosts entry.
   template: src=hosts.j2 dest=/etc/hosts

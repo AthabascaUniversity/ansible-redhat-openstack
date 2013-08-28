@@ -6,25 +6,31 @@
   with_items:
    - qemu-img
    - qemu-kvm
-   - qemu-kvm-tools
    - libvirt
    - libvirt-client
    - libvirt-python
    - libguestfs-tools
-  tags: install       
+  tags: install     
+  
+- name: Install qemu-kvm-tools if needed
+  yum: name=qemu-kvm-tools state=installed
+  when: '{{nova_libvirt_type}} == "kvm"'
 
 - name: Check the required virtualization packages
   rpm: names={{ item }} state=present
   with_items:
    - qemu-img
    - qemu-kvm
-   ##DISABLED - qemu-kvm-tools
    - libvirt
    - libvirt-client
    - libvirt-python
    - libguestfs-tools
   tags: check
 
+- name: Check qemu-kvm-tools if needed
+  rpm: name=qemu-kvm-tools state=present
+  when: '{{nova_libvirt_type}} == "kvm"'
+  
 - name: Configure qemu.conf in libvirt
   copy: src=qemu.conf.j2 dest=/etc/libvirt/qemu.conf
   notify: restart libvirtd
